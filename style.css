@@ -35,8 +35,7 @@
     font-size: 3rem;
     padding: 1rem 2rem;
     border-radius: 1rem 1rem 0 0;
-    background-color: #EB3349;
-    background: linear-gradient(180deg, #EB3349, #F45C43 );
+    background-color: #1a1919;
     overflow-x: auto;
 }
 
@@ -74,6 +73,33 @@
 .operator-btn-bg {
     background-image: linear-gradient(to right, #EB3349 0%, #F45C43  51%, #EB3349  100%);
     box-shadow: 0 0 10px #EB3349;
+}
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #1a1919 #EB3349;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: linear-gradient(to right, #000000 -10%, #434343  51%, #000000  100%);
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #EB3349 0%, #F45C43  51%, #EB3349  100%);
+    border-radius: 3px;
+    border: none;
+}
+
+*::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 @media screen and (max-width: 600px){
