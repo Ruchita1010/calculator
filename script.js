@@ -36,11 +36,23 @@ const clearDisplay = () => {
     displayValue.innerText = "";
 }
 
+const updateOperands = (res = "") => {
+    clearDisplay();
+    updateDisplay(res);
+    operand1 = res ? res : "";
+    operand2 = "";
+    operator = null;
+}
+
 const updateDisplay = (val) => {
     const displayValue = document.querySelector("#display-value");
     if (displayValue.innerText === "0" && operator !== "!") {
         displayValue.innerText = val;
         return;
+    }
+    if (displayValue.innerText === "Cannot divide by 0") {
+        clearDisplay();
+        updateOperands();
     }
     displayValue.innerText += val;
 }
@@ -48,14 +60,6 @@ const updateDisplay = (val) => {
 const displayErrorMessage = (res) => {
     clearDisplay();
     updateDisplay(res);
-}
-
-const updateOperands = (res) => {
-    clearDisplay();
-    updateDisplay(res);
-    operand1 = res ? res : "";
-    operand2 = "";
-    operator = null;
 }
 
 const checkOperator = () => {
