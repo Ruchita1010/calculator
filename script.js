@@ -119,6 +119,9 @@ const setOperands = (e, keyInput = null) => {
 }
 
 const addDecimalPoint = () => {
+    const displayValue = document.querySelector("#display-value");
+    if (displayValue.textContent === ".") return;
+    if ((operand1.includes(".") && !operand2) || operand2.includes(".")) return;
     operand2 ? operand2 += "." : operand1 += ".";
     updateDisplay(".");
 }
