@@ -62,6 +62,7 @@ const checkOperator = () => {
     let res;
     const a = Number(operand1);
     const b = Number(operand2);
+    // const b = +operand2;     
     switch (operator) {
         case "+": {
             res = add(a, b);
@@ -148,7 +149,10 @@ const getKeyboardInput = (e) => {
     else if (keyInput >= "0" && keyInput <= "9") {
         setOperands(e, keyInput);
     }
-    else if (keyInput === "Enter") {
+    else if (keyInput === "=") {
+        /* Not using keyInput === "Enter" because whenever the cursor is on calculator UI,
+        pressing "Enter" also results in clicking of the button on which the cursor is
+        and thus displaying the answer + the clicked button value */
         getAnswer();
     }
 }
