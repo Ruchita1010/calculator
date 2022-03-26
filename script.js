@@ -36,6 +36,12 @@ const clearDisplay = () => {
     displayValue.innerText = "";
 }
 
+const clearCalc = () => {
+    clearDisplay();
+    operand1 = operand2 = "";
+    operator = null;
+}
+
 const updateOperands = (res = "") => {
     clearDisplay();
     updateDisplay(res);
@@ -51,8 +57,7 @@ const updateDisplay = (val) => {
         return;
     }
     if (displayValue.innerText === "Cannot divide by 0") {
-        clearDisplay();
-        updateOperands();
+        clearCalc();
     }
     displayValue.innerText += val;
 }
@@ -100,7 +105,14 @@ const checkOperator = () => {
     Number.isFinite(res) ? updateOperands(res) : displayErrorMessage(res);
 }
 
+const disableEnterKeyClick = (keyInput) => {
+    if (keyInput === "Enter") {
+        keyInput.preventDefault();
+    }
+}
+
 const setOperator = (e, keyInput = null) => {
+    disableEnterKeyClick(keyInput);
     if (operand1 && operand2) {
         checkOperator();
     }
@@ -112,6 +124,7 @@ const setOperator = (e, keyInput = null) => {
 }
 
 const setOperands = (e, keyInput = null) => {
+    disableEnterKeyClick(keyInput);
     const operandValue = keyInput ? keyInput : e.target.innerText;
     updateDisplay(operandValue);
     if (operator && operand1 !== "") {
@@ -139,16 +152,13 @@ const getAnswer = () => {
     }
 }
 
-const clearCalc = () => {
-    clearDisplay();
-    operand1 = operand2 = "";
-    operator = null;
-}
-
 const getKeyboardInput = (e) => {
     const keyInput = e.key;
     if (keyInput === ".") {
         addDecimalPoint();
+    }
+    else if (keyInput === "c" || keyInput === "C") {
+        clearCalc();
     }
     else if (keyInput === "!" || keyInput === "+" || keyInput === "*" || keyInput === "/" || keyInput === "-" || keyInput === "%" || keyInput === "^") {
         setOperator(e, keyInput);
@@ -156,10 +166,7 @@ const getKeyboardInput = (e) => {
     else if (keyInput >= "0" && keyInput <= "9") {
         setOperands(e, keyInput);
     }
-    else if (keyInput === "=") {
-        /* Not using keyInput === "Enter" because whenever the cursor is on calculator UI,
-        pressing "Enter" also results in clicking of the button on which the cursor is
-        and thus displaying the answer + the clicked button value */
+    else if (keyInput === "=" || keyInput === "Enter") {
         getAnswer();
     }
 }
